@@ -55,14 +55,12 @@ export default async function Home() {
             </div>
             <div className="flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 lg:justify-start">
               <Link
-                href='/products'
+                href="/products"
                 className="inline-flex h-12 w-full items-center justify-center rounded-full bg-blue-500 px-6 font-medium tracking-wide text-white shadow-md outline-none transition duration-200 hover:bg-blue-400 focus:ring sm:w-auto"
               >
-                
                 {" "}
                 Start shopping{" "}
               </Link>
-              
             </div>
 
             <div className="mt-6 flex justify-center -space-x-4 lg:justify-start">

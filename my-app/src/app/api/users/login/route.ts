@@ -1,7 +1,8 @@
 import { compare } from "bcryptjs";
 import { z, ZodError } from "zod";
 import { sign } from "jsonwebtoken";
-import { User, UserType } from "@/db/models/user";
+import { User, UserType } from "@/app/db/models/User";
+// import { User, UserType } from "@/db/models/user";
 
 const LoginSchema = z.object({
   email: z.string().email(),
@@ -24,7 +25,8 @@ export async function POST(request: Request) {
     }
 
     const { password, ...safeUser } = user; 
-    const accessToken = sign(safeUser, process.env.JWT_SECRET!); 
+    const accessToken = sign(safeUser, "wkwk"); 
+    // const accessToken = sign(safeUser, process.env.JWT_SECRET!); 
 
     // Optional: Set access token in a cookie
     // cookies().set("Authorization", `Bearer ${accessToken}`);

@@ -1,4 +1,45 @@
+// import SweetAlert from '@/components/SweetAlert';
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
+import SweetAlert from "../components/Sweetalert";
+
+// export default function Login() {
+    
+    
+
+//     return <>;
+// }
+
 export default function Login() {
+  const handleLogin = async (formData: FormData) => {
+    'use server'
+
+    const form = {
+        email: formData.get('email'),
+        password: formData.get('password'),
+    };
+
+    const response = await fetch('http://localhost:3000/api/users/login', {
+        method: 'POST',
+        body: JSON.stringify(form),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    });
+
+    if (!response.ok) {
+        const errorBody = await response.json() as { error: string };
+        console.log(errorBody)
+        return redirect('/login?error=' + errorBody.error);
+    }
+
+    const responseBody = await response.json() as { access_token: string };
+    console.log(responseBody)
+
+    cookies().set('Authorization', 'Bearer ' + responseBody.access_token);
+
+    return redirect('/wishlists');
+}
   return (
     <div className="bg-gray-50 font-[sans-serif]">
       <div className="min-h-screen flex flex-col items-center justify-center py-6 px-4">
@@ -10,23 +51,23 @@ export default function Login() {
               className="w-40 mb-8 mx-auto block"
             />
           </a>
-
+          <SweetAlert/>
           <div className="p-8 rounded-2xl bg-white shadow">
             <h2 className="text-gray-800 text-center text-2xl font-bold">
               Sign in
             </h2>
-            <form className="mt-8 space-y-4">
+            <form action={handleLogin} className="mt-8 space-y-4">
               <div>
                 <label className="text-gray-800 text-sm mb-2 block">
-                  User name
+                  Email
                 </label>
                 <div className="relative flex items-center">
                   <input
-                    name="username"
-                    type="text"
+                    name="email"
+                    type="mail"
                     required
                     className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
-                    placeholder="Enter user name"
+                    placeholder="Enter email"
                   />
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -103,7 +144,7 @@ export default function Login() {
 
               <div className="!mt-8">
                 <button
-                  type="button"
+                  type="submit"
                   className="w-full py-3 px-4 text-sm tracking-wide rounded-lg text-white bg-blue-600 hover:bg-blue-700 focus:outline-none"
                 >
                   Sign in
