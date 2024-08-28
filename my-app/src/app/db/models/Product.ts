@@ -1,3 +1,4 @@
+import { WithId } from "mongodb";
 import { db } from "../mongodb";
 import { z } from "zod";
 
@@ -14,7 +15,7 @@ const ProductSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export type ProductType = z.infer<typeof ProductSchema>;
+export type ProductType = WithId<z.infer<typeof ProductSchema>>;
 
 class Product {
   static col() {
