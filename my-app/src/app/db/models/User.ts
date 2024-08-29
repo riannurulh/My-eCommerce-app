@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId, WithId } from "mongodb";
 import { db } from "../mongodb";
 import { z } from "zod";
 import { hash } from "bcryptjs";
@@ -12,7 +12,7 @@ const UserSchema = z.object({
   updatedAt: z.date().optional(),
 });
 
-export type UserType = z.infer<typeof UserSchema>;
+export type UserType = WithId<z.infer<typeof UserSchema>>;
 
 export class User {
   private static collection() {
@@ -31,7 +31,7 @@ export class User {
     return this.collection().findOne(filter);
   }
 
-  static async create(newUser: UserType): Promise<UserType> {
+  static async create(newUser: UserType): Promise<Omit<UserType, 'password'>> {
     newUser.password = await hash(newUser.password, 12);
     newUser.createdAt = newUser.updatedAt = new Date();
 

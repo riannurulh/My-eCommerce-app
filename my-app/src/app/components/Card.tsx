@@ -5,7 +5,7 @@ import { ProductType } from "../db/models/Product";
 import AddWishlist from "./Wishlist";
 // import { cookies } from "next/headers";
 
-export default function Card(props: ProductType) {
+export default function Card(props: {product:ProductType}) {
 //   console.log(props, "props");
 
   // console.log(props,'hehehe');

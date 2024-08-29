@@ -1,4 +1,4 @@
-'use server'
+"use server";
 
 import Image from "next/image";
 import Link from "next/link";
@@ -9,13 +9,11 @@ import { cookies } from "next/headers";
 
 export default async function Home() {
   const products: ProductType[] = await dataProducts();
-  const kuki =  cookies().getAll()
-  console.log(kuki,'nikuki');
+  const kuki = cookies().getAll();
+  console.log(kuki, "nikuki");
   return (
     <>
-      
-      <Banner/>
-
+      <Banner />
       <div className="font-[sans-serif] p-4 mx-auto lg:max-w-5xl md:max-w-3xl max-w-lg mb-20">
         <div className="flex justify-between">
           <h2 className="text-4xl font-extrabold text-gray-800 mb-12">
@@ -28,11 +26,11 @@ export default async function Home() {
         <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 ">
           {products.slice(0, 6).map((product) => {
             return (
-  
-              
-              <Card product={product} kuki={kuki[1].value} key={product._id.toString()}/>
-              
-          
+              <Card
+                product={product}
+                kuki={kuki[1].value}
+                key={product._id.toString()}
+              />
             );
           })}
         </div>
