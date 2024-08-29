@@ -67,10 +67,12 @@ export default async function ProductDetail({ params }) {
                   }).format(product.price)}
                 </p>
                 <p className="text-gray-500 line-through text-sm mt-2">
-                  {new Intl.NumberFormat("id-ID", {
-                    style: "currency",
-                    currency: "IDR",
-                  }).format(product.price * 1.2)}{" "}
+                  
+                    {new Intl.NumberFormat("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    }).format(product.price * 1.2)}
+                 {" "}
                   <span className="text-sm ml-1">Tax included</span>
                 </p>
               </div>

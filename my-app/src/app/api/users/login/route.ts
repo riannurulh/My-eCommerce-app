@@ -31,7 +31,7 @@ export async function POST(request: Request) {
     // Optional: Set access token in a cookie
     // cookies().set("Authorization", `Bearer ${accessToken}`);
 
-    return Response.json({ accessToken }); 
+    return Response.json({ accessToken, id: user._id }); 
   } catch (error) {
     if (error instanceof ZodError) {
       const formatted = error.issues.map((issue) => ({

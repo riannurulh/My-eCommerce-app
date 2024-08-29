@@ -26,6 +26,7 @@ export default function Login() {
             'Content-Type': 'application/json'
         }
     });
+console.log(response);
 
     if (!response.ok) {
         const errorBody = await response.json() as { error: string };
@@ -33,10 +34,11 @@ export default function Login() {
         return redirect('/login?error=' + errorBody.error);
     }
 
-    const responseBody = await response.json() as { access_token: string };
-    console.log(responseBody)
+    const responseBody = await response.json() as { access_token: string , id: string};
+    console.log(responseBody,'rbodyyyy')
 
     cookies().set('Authorization', 'Bearer ' + responseBody.access_token);
+    cookies().set('id', `${responseBody.id}`);
 
     return redirect('/wishlists');
 }
@@ -65,6 +67,7 @@ export default function Login() {
                   <input
                     name="email"
                     type="mail"
+
                     required
                     className="w-full text-gray-800 text-sm border border-gray-300 px-4 py-3 rounded-md outline-blue-600"
                     placeholder="Enter email"

@@ -6,9 +6,10 @@ import { hash } from "bcryptjs";
 const UserSchema = z.object({
   email: z.string().email(),
   password: z.string().min(6),
-  age: z.number().optional(),
+  username: z.string(),
+  name: z.string(),
   createdAt: z.date().optional(),
-  updatedAt: z.date().optional(), // Corrected typo here
+  updatedAt: z.date().optional(),
 });
 
 export type UserType = z.infer<typeof UserSchema>;
