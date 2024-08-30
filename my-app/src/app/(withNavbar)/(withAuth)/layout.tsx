@@ -7,12 +7,9 @@ export default function withAuthLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="flex">
         <ProtectedRoute>
             {children}
         </ProtectedRoute>
-      </body>
-    </html>
+      
   );
 }
