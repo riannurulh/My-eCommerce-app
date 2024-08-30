@@ -5,28 +5,28 @@ import { ProductType } from "../db/models/Product";
 import AddWishlist from "./Wishlist";
 // import { cookies } from "next/headers";
 
-export default function Card(props: {product:ProductType}) {
-//   console.log(props, "props");
+export default function Card(props: { product: ProductType, kuki: string }) {
+  //   console.log(props, "props");
 
   // console.log(props,'hehehe');
   const product = props.product;
-//   async function handleAddWishlist() {
-//     console.log("masuk");
-//     const result = await fetch("http://localhost:3000/api/wishlists", {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({ UserId: props.kuki, productId: props.product._id }),
-//     });
-//     console.log(result);
+  //   async function handleAddWishlist() {
+  //     console.log("masuk");
+  //     const result = await fetch("http://localhost:3000/api/wishlists", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ UserId: props.kuki, productId: props.product._id }),
+  //     });
+  //     console.log(result);
 
-//     // let res = await result.json();
-//   }
+  //     // let res = await result.json();
+  //   }
   return (
-    <div
+    <Link
       key={product._id.toString()}
-      //   href={`/products/${product.slug}`}
+        href={`/products/${product.slug}`}
       className="relative m-5 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md"
     >
       {/* <a href="#"> */}
@@ -110,7 +110,7 @@ export default function Card(props: {product:ProductType}) {
               }).format(product.price * 1.2)}
             </div>
           </div>
-<AddWishlist products={props}/>
+          <AddWishlist products={props} />
           {/* <button
             type="button"
             onClick={handleAddWishlist}
@@ -120,6 +120,6 @@ export default function Card(props: {product:ProductType}) {
           </button> */}
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

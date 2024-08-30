@@ -1,4 +1,4 @@
-export default async function ProductDetail({ params }) {
+export default async function ProductDetail({ params }:any) {
   console.log(params);
   const response = await fetch(
     `http://localhost:3000/api/products/${params.slug}`

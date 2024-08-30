@@ -2,9 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import Product, { ProductType } from "./db/models/Product";
-import Card from "./components/Card";
-import Banner from "./components/Banner";
+import Product, { ProductType } from "../db/models/Product";
+import Card from "../components/Card";
+import Banner from "../components/Banner";
 import { cookies } from "next/headers";
 
 export default async function Home() {
@@ -28,7 +28,7 @@ export default async function Home() {
             return (
               <Card
                 product={product}
-                kuki={kuki[1].value}
+                kuki={kuki[1]?.value}
                 key={product._id.toString()}
               />
             );

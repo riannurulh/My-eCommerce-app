@@ -1,12 +1,26 @@
 "use client";
 
+import { redirect, useRouter } from "next/navigation";
 import { cookies } from "next/headers";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, MouseEventHandler, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export default function AddWishlist(props: any) {
-    console.log(props,'pwl');
-    
-  async function handleAddWishlist() {
+  const router =  useRouter()
+  console.log(props, "pwl");
+  
+  async function handleAddWishlist(e: any) {
+    e.preventDefault();
+    if (!props.products.kuki) {
+      e.preventDefault()
+      Swal.fire({
+  
+        icon: 'error',
+        title: 'You have to login for add to wishlist'
+  
+      })
+      router.push('/login')
+    }
     console.log("masuk");
     const result = await fetch("http://localhost:3000/api/wishlists", {
       method: "POST",
@@ -20,7 +34,6 @@ export default function AddWishlist(props: any) {
     });
     console.log(result);
   }
-
   return (
     <button
       type="button"

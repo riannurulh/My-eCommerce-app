@@ -3,7 +3,8 @@ import { redirect } from 'next/navigation';
 
 
 import Link from "next/link";
-import SweetAlert from '../components/Sweetalert';
+import SweetAlert from '@/app/components/Sweetalert';
+// import SweetAlert from '../components/Sweetalert';
 
 export default function Register() {
   const handleRegister = async (formData: FormData) => {

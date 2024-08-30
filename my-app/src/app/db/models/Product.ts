@@ -22,9 +22,28 @@ class Product {
     return db.collection<ProductType>("Products");
   }
 
-  static async findAll() {
-    const result = await this.col().find().toArray();
-    return result;
+  // static async findAll() {
+  //   const result = await this.col().find().toArray();
+  //   return result;
+  // }
+  static async findAll(page: number = 1, limit: number = 9, query?: string) {
+    try {
+      let filter = {};
+      if (query) {
+        filter = {
+          $or: [{ name: { $regex: query, $options: "i" } }],
+        };
+      }
+      const result = await this.col()
+        .find(filter)
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .toArray();
+      return result;
+    } catch (error) {
+      console.log(error, "models error");
+      throw new Error("Failed to fetch products");
+    }
   }
 
   static async findBySlug(slug: string) {
