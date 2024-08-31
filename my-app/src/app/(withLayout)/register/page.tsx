@@ -28,7 +28,7 @@ export default function Register() {
         },
       }
     );
-    console.log(response, "respon regis");
+    // console.log(response, "respon regis");
 
     // if (!response.ok) {
     //   const errorBody = await response.json();
@@ -41,19 +41,23 @@ export default function Register() {
     if (!response.ok) {
       let errorBody;
 
-      try {
-        errorBody = (await response.json()) as { error: string };
-      } catch (e) {
-        console.error("Failed to parse error response:", e);
-      }
+      errorBody = await response.json()
+      console.error("Register error:", errorBody.error);
+      console.log(errorBody.error,'llllllll');
+      
+      // return redirect("/register?error=" + errorBody.error);
+      return redirect(`/register?error=${encodeURIComponent(errorBody.error[0].message)}`);
+      // try {
+      // } catch (e) {
+      //   console.error("Failed to parse error response:", e);
+      // }
 
-      if (errorBody?.error) {
-        console.log(errorBody);
-        return redirect("/register?error=" + errorBody.error);
-      } else {
-        console.error("Unexpected error response:", response);
-        return redirect("/register?error=Unexpected error occurred");
-      }
+      // if (errorBody?.error) {
+      //   console.log(errorBody);
+      // } else {
+      //   console.error("Unexpected error response:", response);
+      //   return redirect("/register?error=Unexpected error occurred");
+      // }
     }
 
     //----------------
@@ -64,19 +68,19 @@ export default function Register() {
     <div className="flex flex-col justify-center font-[sans-serif] sm:h-screen p-4">
       <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
         <div className="text-center mb-12">
-          <a href="javascript:void(0)">
+          {/* <a href="javascript:void(0)"> */}
             <Image
-              src="https://readymadeui.com/readymadeui.svg"
+              src="https://i.ibb.co.com/KN07gB3/Screenshot-2024-08-28-at-23-41-33-removebg-preview.png"
               alt="logo"
-              width={40}
-              height={40}
-              className="w-40 inline-block"
+              width={60}
+              height={20}
+              className=" inline-block"
             />
-          </a>
+          {/* </a> */}
         </div>
-        <Suspense fallback={<div>Loading...</div>}>
+        {/* <Suspense > */}
           <SweetAlert />
-        </Suspense>
+        {/* </Suspense> */}
         <form action={handleRegister}>
           <div className="space-y-6">
             <div>

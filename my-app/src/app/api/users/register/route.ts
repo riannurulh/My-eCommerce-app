@@ -91,32 +91,47 @@ export async function POST(request: Request): Promise<Response> {
       { status: 201, headers: { 'Content-Type': 'application/json' } }
     );
   } catch (error) {
+    // if (error instanceof ZodError) {
+    //   const formattedErrors = error.issues.map((issue) => ({
+    //     field: issue.path[0],
+    //     message: issue.message.toLowerCase(),
+    //   }));
+    //   console.log(formattedErrors,'cccccc');
+      
+    //   return new Response(
+    //     JSON.stringify({ error: formattedErrors }),
+    //     { status: 400, headers: { 'Content-Type': 'application/json' } }
+    //   );
+    // }
+
+    // if (error instanceof Error) {
+    //   // Return a Response with general error message
+    //   return new Response(
+    //     JSON.stringify({ error: error.message }),
+    //     { status: 500, headers: { 'Content-Type': 'application/json' } }
+    //   );
+    // }
+
+    // console.error("Internal Server Error:", error);
+    // // Return a generic internal server error Response
+    // return new Response(
+    //   JSON.stringify({ error: "Internal Server Error" }),
+    //   { status: 500, headers: { 'Content-Type': 'application/json' } }
+    // );
     if (error instanceof ZodError) {
-      const formattedErrors = error.issues.map((issue) => ({
+      const formatted = error.issues.map((issue) => ({
         field: issue.path[0],
         message: issue.message.toLowerCase(),
       }));
-
-      // Return a Response with validation errors
-      return new Response(
-        JSON.stringify({ error: formattedErrors }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return Response.json({ error: formatted }, { status: 400 });
     }
 
     if (error instanceof Error) {
-      // Return a Response with general error message
-      return new Response(
-        JSON.stringify({ error: error.message }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
+      return Response.json({ error: error.message }, { status: 401 }); 
     }
 
-    console.error("Internal Server Error:", error);
-    // Return a generic internal server error Response
-    return new Response(
-      JSON.stringify({ error: "Internal Server Error" }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
-    );
+    console.error("Internal Server Error:", error); 
+    return Response.json({ error: "Internal Server Error" }, { status: 500 }); 
+ 
   }
 }

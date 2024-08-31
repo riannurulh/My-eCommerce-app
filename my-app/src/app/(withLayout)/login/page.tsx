@@ -200,30 +200,30 @@ export default function Login() {
       password: formData.get("password"),
     };
 
-    try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/users/login`, {
-        method: "POST",
-        body: JSON.stringify(form),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/users/login`, {
+      method: "POST",
+      body: JSON.stringify(form),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
 
-      if (!response.ok) {
-        const errorBody = await response.json();
-        console.error("Login error:", errorBody.error);
-        return redirect(`/login?error=${encodeURIComponent(errorBody.error)}`);
-      }
-
-      const responseBody = await response.json();
-      cookies().set("Authorization", `Bearer ${responseBody.accessToken}`);
-      cookies().set("id", responseBody.id);
-
-      return redirect("/");
-    } catch (error) {
-      console.error("Unexpected error:", error);
-      return redirect("/login?error=Unexpected error occurred");
+    if (!response.ok) {
+      const errorBody = await response.json();
+      console.error("Login error:", errorBody.error);
+      return redirect(`/login?error=${encodeURIComponent(errorBody.error)}`);
     }
+    const responseBody = await response.json();
+    cookies().set("Authorization", `Bearer ${responseBody.accessToken}`);
+    cookies().set("id", responseBody.id);
+
+    return redirect("/");
+    // try {
+
+    // } catch (error) {
+    //   console.error("Login error:", error);
+    //   return redirect(`/login?error=${error.message}`);
+    // }
   };
 
   return (

@@ -9,6 +9,8 @@ function SweetAlert() {
 
   const searchParams = useSearchParams()
   const error = searchParams.get('error')
+  console.log(error,'swallll');
+  
 
   useEffect(() => {
 
