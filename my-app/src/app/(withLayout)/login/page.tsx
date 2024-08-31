@@ -177,11 +177,11 @@
 //     </div>
 //   );
 // }
-
 import SweetAlert from "@/app/components/Sweetalert";
 import { cookies } from "next/headers";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import Image from 'next/image';
 
 export default function Login() {
   // Perform cookie check on server-side only
