@@ -53,7 +53,7 @@
 
 // export async function dataProducts() {
 //   try {
-//     const response = await fetch(`${process.env.BASE_URL}api/products`);
+//     const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/products`);
 
 //     if (!response.ok) {
 //       throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -93,7 +93,6 @@
 // //   }
 // // }
 
-// src/app/(withNavbar)/page.tsx
 
 import Image from "next/image";
 import Link from "next/link";

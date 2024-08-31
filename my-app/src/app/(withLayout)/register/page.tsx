@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 
 import Link from "next/link";
 import SweetAlert from "@/app/components/Sweetalert";
+import { Suspense } from "react";
+export const dynamic = "force-dynamic"
 // import SweetAlert from '../components/Sweetalert';
 
 export default function Register() {
@@ -16,13 +18,16 @@ export default function Register() {
       password: formData.get("password"),
     };
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/users/register`, {
-      method: "POST",
-      body: JSON.stringify(form),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}api/users/register`,
+      {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     console.log(response, "respon regis");
 
     // if (!response.ok) {
@@ -35,13 +40,13 @@ export default function Register() {
 
     if (!response.ok) {
       let errorBody;
-      
+
       try {
-        errorBody = await response.json() as { error: string };
+        errorBody = (await response.json()) as { error: string };
       } catch (e) {
         console.error("Failed to parse error response:", e);
       }
-    
+
       if (errorBody?.error) {
         console.log(errorBody);
         return redirect("/register?error=" + errorBody.error);
@@ -69,7 +74,9 @@ export default function Register() {
             />
           </a>
         </div>
-        <SweetAlert />
+        <Suspense fallback={<div>Loading...</div>}>
+          <SweetAlert />
+        </Suspense>
         <form action={handleRegister}>
           <div className="space-y-6">
             <div>
