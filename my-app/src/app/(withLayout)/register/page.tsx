@@ -60,9 +60,11 @@ export default function Register() {
       <div className="max-w-md w-full mx-auto border border-gray-300 rounded-2xl p-8">
         <div className="text-center mb-12">
           <a href="javascript:void(0)">
-            <img
+            <Image
               src="https://readymadeui.com/readymadeui.svg"
               alt="logo"
+              width={40}
+              height={40}
               className="w-40 inline-block"
             />
           </a>
