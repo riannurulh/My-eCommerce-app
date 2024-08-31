@@ -26,12 +26,15 @@ export default function AddWishlist(props: any) {
    async function handleAddWishlist(e: any) {
      e.preventDefault();
      console.log(kuki);
-    if (!props.products.kuki&&!kuki) {
-      Swal.fire({
+     if (!props.products.kuki && !kuki) {
+      const result = await Swal.fire({
         icon: "error",
-        title: "You have to login for add to wishlist",
+        title: "You have to login to add wishlist",
       });
-      router.push("/login");
+    
+      if (result.isConfirmed) {
+        return router.push("/login");
+      }
     }
     console.log("masuk");
     Swal.fire({
