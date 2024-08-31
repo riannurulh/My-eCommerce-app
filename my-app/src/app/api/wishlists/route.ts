@@ -7,16 +7,16 @@ export async function GET(request: Request) {
   try {
     console.log('msk get wl api');
     const cekKuki = cookies().get('id')
-    console.log(cekKuki,'model');
+    // console.log(cekKuki,'model');
     
-    const userId = cekKuki?.value
+    const userId: any = cekKuki?.value
     if (!userId) {
       return Response.json({message:'Unauthorized'},{status:401})
     }
-    console.log(userId,'api userid');
+    // console.log(userId,'api userid');
     
     const wishlist = await Wishlist.findByUserLogin(userId)
-    console.log(wishlist,'wl di apiiii');
+    // console.log(wishlist,'wl di apiiii');
     
     return Response.json(wishlist,{status:200})
   } catch (error) {
@@ -49,5 +49,19 @@ export async function POST(request: Request) {
 
     console.error("Internal Server Error:", error);
     return Response.json({ error: "Internal Server Error" }, { status: 500 });
+  }
+}
+
+export async function DELETE(request: Request) {
+  try {
+    const body: any = await request.json();
+
+    console.log(body,'bodydelete');
+    
+    const result = await Wishlist.DeleteWishList(body._id);
+
+    return Response.json({ msg: "deleted" });
+  } catch (error) {
+    console.log(error);
   }
 }

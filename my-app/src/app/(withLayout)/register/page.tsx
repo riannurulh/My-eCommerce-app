@@ -19,7 +19,7 @@ export default function Register() {
     }
     // console.log(form);
     
-    const response = await fetch("http://localhost:3000/api/users/register", {
+    const response = await fetch(`${process.env.BASE_URL}api/users/register`, {
       method: "POST",
       body: JSON.stringify(form),
       headers: {

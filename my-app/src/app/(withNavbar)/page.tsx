@@ -6,9 +6,15 @@ import Product, { ProductType } from "../db/models/Product";
 import Card from "../components/Card";
 import Banner from "../components/Banner";
 import { cookies } from "next/headers";
+import { WishlistType } from "../db/models/Wishlist";
 
 export default async function Home() {
+  // console.log(process.env.BASE_URL,'iniiii');
+
   const products: ProductType[] = await dataProducts();
+  const wl: WishlistType[] = await fetchWishlist();
+  console.log(wl, "wlwlwl");
+
   const kuki = cookies().getAll();
   console.log(kuki, "nikuki");
   return (
@@ -38,9 +44,7 @@ export default async function Home() {
 
       <footer className="bg-gray-800 text-white py-4">
         <div className="container mx-auto text-center">
-          <p>
-            &copy; {new Date().getFullYear()} MyEcommerce. All rights reserved.
-          </p>
+          <p>&copy; {new Date().getFullYear()} BELI. All rights reserved.</p>
         </div>
       </footer>
     </>
@@ -49,7 +53,7 @@ export default async function Home() {
 
 export async function dataProducts() {
   try {
-    const response = await fetch("http://localhost:3000/api/products");
+    const response = await fetch(`${process.env.BASE_URL}api/products`);
 
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -57,6 +61,25 @@ export async function dataProducts() {
 
     const data = (await response.json()) as ProductType[];
 
+    return data;
+  } catch (error) {
+    console.log(error);
+
+    return [];
+  }
+}
+export async function fetchWishlist() {
+  try {
+    const response = await fetch(`${process.env.BASE_URL}api/wishlists`
+    );
+
+    console.log(response,'coba');
+    if (!response.ok) {
+      throw new Error("Failed to fetch wishlist");
+    }
+    
+    const data = (await response.json()) as WishlistType[];
+    console.log(data, "wl-----");
     return data;
   } catch (error) {
     console.log(error);

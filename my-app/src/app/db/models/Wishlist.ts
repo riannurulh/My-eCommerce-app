@@ -17,25 +17,23 @@ export class Wishlist {
   }
 
   static async AddToWishlist(data: WishlistType) {
-    console.log(data,'ini asli');
-    
-    const newData = {
+    console.log(data, "ini asli");
+
+    const newData: any = {
       userId: new ObjectId(data.UserId),
       productId: new ObjectId(data.productId),
-      createdAt : new Date(),
-      updateAt : new Date(),
-
-    }
-    console.log(newData,'nd model addwl');
-    
+      createdAt: new Date(),
+      updateAt: new Date(),
+    };
+    console.log(newData, "nd model addwl");
 
     await this.col().insertOne(newData);
     return "success add to wishlist";
   }
   static async findByUserLogin(userId: string) {
     try {
-      console.log(userId,'model userid');
-      
+      console.log(userId, "model userid");
+
       const pipeline = [
         { $match: { userId: new ObjectId(userId) } },
         {
@@ -69,5 +67,8 @@ export class Wishlist {
       console.error("Error fetching wishlist:", error);
       throw error;
     }
+  }
+  static async DeleteWishList(data: string) {
+    return await this.col().deleteOne({ _id: new ObjectId(String(data)) });
   }
 }

@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 
 export default function AddWishlist(props: any) {
   const router =  useRouter()
-  console.log(props, "pwl");
+  // console.log(props, "pwl");
   
   async function handleAddWishlist(e: any) {
     e.preventDefault();
@@ -22,7 +22,13 @@ export default function AddWishlist(props: any) {
       router.push('/login')
     }
     console.log("masuk");
-    const result = await fetch("http://localhost:3000/api/wishlists", {
+    Swal.fire({
+  
+      icon: 'success',
+      title: 'added to wishlist'
+
+    })
+    const result = await fetch(`${process.env.BASE_URL}api/wishlists`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

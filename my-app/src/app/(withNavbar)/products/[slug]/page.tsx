@@ -1,11 +1,34 @@
+import { ResolvingMetadata } from "next";
+
+export async function generateMetadata(props: any,parent: ResolvingMetadata) {
+  // console.log(params,'param meta');
+  console.log(parent, 'meta');
+  
+  
+  const response = await fetch(
+    `${process.env.BASE_URL}api/products/${props.params.slug}`
+  );
+
+  const data = await response.json();
+  // console.log(data,'dalam meta');
+  
+  const parentTitle = (await parent).title?.absolute
+  return {
+      title: parentTitle + " - " + data?.slug,
+      openGraph: {
+          images: [data?.thumbnail]
+      }
+  }
+}
+
 export default async function ProductDetail({ params }:any) {
   console.log(params);
   const response = await fetch(
-    `http://localhost:3000/api/products/${params.slug}`
+    `${process.env.BASE_URL}api/products/${params.slug}`
   );
 
   const product = await response.json();
-  console.log(product, "<<<inih");
+  // console.log(product, "<<<inih");
 
   return (
     <div className="font-sans">
