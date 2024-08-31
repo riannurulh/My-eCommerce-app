@@ -1,6 +1,9 @@
 import { MongoClient, ServerApiVersion } from "mongodb"
 
-const uri = process.env.NEXT_PUBLIC_DATABASE_URL
+const uri = process.env.NEXT_PUBLIC_DATABASE_URL;
+if (!uri) {
+  throw new Error('MongoDB connection string is not defined in environment variables.');
+}
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
