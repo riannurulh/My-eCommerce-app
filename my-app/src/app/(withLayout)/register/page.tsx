@@ -46,7 +46,7 @@ export default function Register() {
       console.log(errorBody.error,'llllllll');
       
       // return redirect("/register?error=" + errorBody.error);
-      return redirect(`/register?error=${encodeURIComponent(errorBody.error[0].message)}`);
+      return redirect(`/register?error=${encodeURIComponent(errorBody.error[0].message||errorBody.error)}`);
       // try {
       // } catch (e) {
       //   console.error("Failed to parse error response:", e);
