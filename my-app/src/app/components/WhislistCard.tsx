@@ -1,6 +1,7 @@
 'use client'
 
 import { revalidatePath } from "next/cache";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 // import { useRouter } from "next/router";
 import { useState } from "react";
@@ -31,7 +32,10 @@ export default function WLCard(props: any) {
     return( <div className="grid grid-cols-3 items-center gap-4">
                 <div className="col-span-2 flex items-center gap-4">
                   <div className="w-28 h-28 max-sm:w-24 max-sm:h-24  bg-gray-100 p-2 rounded-md">
-                    <img
+                    <Image
+                    height={70}
+                    width={40}
+                    alt="thumbnail"
                       src={list.props.product.thumbnail}
                       className="w-full h-full object-contain"
                     />

@@ -2,52 +2,54 @@ import { ResolvingMetadata } from "next";
 import Wishlist from "../../(withAuth)/wishlists/page";
 import { cookies } from "next/headers";
 import AddWishlist from "@/app/components/Wishlist";
+import Image from "next/image";
 
-export async function generateMetadata(props: any,parent: ResolvingMetadata) {
+export async function generateMetadata(props: any, parent: ResolvingMetadata) {
   // console.log(params,'param meta');
   // console.log(parent, 'meta');
-  
-  
+
   const response = await fetch(
     `${process.env.BASE_URL}api/products/${props.params.slug}`
   );
 
   const data = await response.json();
   // console.log(data,'dalam meta');
-  
-  const parentTitle = (await parent).title?.absolute
+
+  const parentTitle = (await parent).title?.absolute;
   return {
-      title: parentTitle + " - " + data?.slug,
-      openGraph: {
-          images: [data?.thumbnail]
-      }
-  }
+    title: parentTitle + " - " + data?.slug,
+    openGraph: {
+      images: [data?.thumbnail],
+    },
+  };
 }
 
-export default async function ProductDetail({ params }:any) {
+export default async function ProductDetail({ params }: any) {
   // console.log(params);
   const response = await fetch(
     `${process.env.BASE_URL}api/products/${params.slug}`
   );
-  const kuki = cookies().get('id')
-  console.log(kuki,'slug');
-  
+  const kuki = cookies().get("id");
+  console.log(kuki, "slug");
+
   const product = await response.json();
   const newObj = {
     product,
-    kuki: kuki?.value
-  }
+    kuki: kuki?.value,
+  };
   console.log(newObj);
-  
+
   // console.log(product, "<<<inih");
 
   return (
-    <div className="font-sans">
-      <div className="p-4 lg:max-w-6xl max-w-2xl max-lg:mx-auto">
-        <div className="grid items-start grid-cols-1 lg:grid-cols-2 gap-8 max-lg:gap-16">
+    <div className="font-sans w-full">
+      <div className="p-4 lg:max-w-6xl max-w-2xl mx-auto">
+        <div className="grid items-center grid-cols-1 lg:grid-cols-2 gap-8 max-lg:gap-16">
           <div className="w-full lg:sticky top-0 text-center">
             <div className="lg:h-[560px]">
-              <img
+              <Image
+                width={50}
+                height={16}
                 src={product.thumbnail}
                 alt="Product"
                 className="lg:w-11/12 w-full h-full rounded-md object-cover object-top"
@@ -55,22 +57,30 @@ export default async function ProductDetail({ params }:any) {
             </div>
 
             <div className="flex flex-wrap gap-4 justify-center mx-auto mt-4">
-              <img
+              <Image
+                width={16}
+                height={16}
                 src={product.images[0]}
                 alt="Product1"
                 className="w-16 cursor-pointer rounded-md"
               />
-              <img
+              <Image
+                width={16}
+                height={16}
                 src={product.images[1]}
                 alt="Product2"
                 className="w-16 cursor-pointer rounded-md"
               />
-              <img
+              <Image
+                width={16}
+                height={16}
                 src={product.images[2]}
                 alt="Product3"
                 className="w-16 cursor-pointer rounded-md"
               />
-              <img
+              <Image
+                width={16}
+                height={16}
                 src={product.images[3]}
                 alt="Product4"
                 className="w-16 cursor-pointer rounded-md"
@@ -101,12 +111,10 @@ export default async function ProductDetail({ params }:any) {
                   }).format(product.price)}
                 </p>
                 <p className="text-gray-500 line-through text-sm mt-2">
-                  
-                    {new Intl.NumberFormat("id-ID", {
-                      style: "currency",
-                      currency: "IDR",
-                    }).format(product.price * 1.2)}
-                 {" "}
+                  {new Intl.NumberFormat("id-ID", {
+                    style: "currency",
+                    currency: "IDR",
+                  }).format(product.price * 1.2)}{" "}
                   <span className="text-sm ml-1">Tax included</span>
                 </p>
               </div>
@@ -170,7 +178,7 @@ export default async function ProductDetail({ params }:any) {
               >
                 Add to wishlist
               </button> */}
-              <AddWishlist products={newObj} frompage="slug"/>
+              <AddWishlist products={newObj} frompage="slug" />
             </div>
           </div>
         </div>

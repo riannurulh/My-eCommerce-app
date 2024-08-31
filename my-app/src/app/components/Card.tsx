@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { ProductType } from "../db/models/Product";
 import AddWishlist from "./Wishlist";
+import Image from "next/image";
 // import { cookies } from "next/headers";
 
 export default function Card(props: { product: ProductType, kuki?: string }) {
@@ -32,7 +33,9 @@ export default function Card(props: { product: ProductType, kuki?: string }) {
       className="relative m-5 w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md"
     >
       {/* <a href="#"> */}
-      <img
+      <Image
+      width={70}
+      height={70}
         className="w-full h-auto rounded-t-lg object-cover"
         src={product.thumbnail}
         alt="product image"

@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 const products = [
     { id: 1, name: 'Product 1', price: '$29.99' },
     { id: 2, name: 'Product 2', price: '$39.99' },
@@ -11,7 +13,7 @@ const products = [
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map(product => (
             <div key={product.id} className="bg-white shadow-lg rounded-lg overflow-hidden">
-              <img src={`/path-to-your-product-image-${product.id}.jpg`} alt={product.name} className="w-full h-48 object-cover" />
+              <Image width={70} height={48} src={`/path-to-your-product-image-${product.id}.jpg`} alt={product.name} className="w-full h-48 object-cover" />
               <div className="p-4">
                 <h3 className="text-xl font-semibold">{product.name}</h3>
                 <p className="text-gray-500">{product.price}</p>
