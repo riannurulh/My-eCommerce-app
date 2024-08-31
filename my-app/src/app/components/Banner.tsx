@@ -16,8 +16,7 @@ export default function Banner() {
                 <span className="inline-block text-blue-500"> Wakanda</span>
               </h2>
               <p className="text-base text-gray-700 md:text-lg">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eos,
-                consequuntur quaerat! Optio.
+                Find your needs in one click.
               </p>
             </div>
             <div className="flex flex-col items-center justify-center space-y-2 sm:flex-row sm:space-y-0 sm:space-x-2 lg:justify-start">

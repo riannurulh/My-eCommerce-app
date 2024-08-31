@@ -82,7 +82,7 @@
 // //     if (!response.ok) {
 // //       throw new Error("Failed to fetch wishlist");
 // //     }
-    
+
 // //     const data = (await response.json()) as WishlistType[];
 // //     console.log(data, "wl-----");
 // //     return data;
@@ -93,7 +93,6 @@
 // //   }
 // // }
 
-
 import Image from "next/image";
 import Link from "next/link";
 import Product, { ProductType } from "../db/models/Product";
@@ -101,14 +100,16 @@ import Card from "../components/Card";
 import Banner from "../components/Banner";
 import { cookies } from "next/headers";
 import { WishlistType } from "../db/models/Wishlist";
+// import ShopInfo from "../components/Shopinfo";
+import Footer from "../components/Footer";
 
 export default async function Home() {
   // Fetch data directly inside the component
   const products: ProductType[] = await dataProducts();
 
-  const kuki = cookies().get('id')?.value;
+  const kuki = cookies().get("id")?.value;
   console.log(kuki, "nikuki");
-  
+
   return (
     <>
       <Banner />
@@ -123,27 +124,21 @@ export default async function Home() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.slice(0, 6).map((product) => (
-            <Card
-              product={product}
-              kuki={kuki}
-              key={product._id.toString()}
-            />
+            <Card product={product} kuki={kuki} key={product._id.toString()} />
           ))}
         </div>
       </div>
-
-      <footer className="bg-gray-800 text-white py-4">
-        <div className="container mx-auto text-center">
-          <p>&copy; {new Date().getFullYear()} BELI. All rights reserved.</p>
-        </div>
-      </footer>
+      {/* <ShopInfo /> */}
+      <Footer />
     </>
   );
 }
 
 async function dataProducts() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/products`);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}api/products`
+    );
 
     if (!response.ok) {
       throw new Error(`Network response was not ok: ${response.statusText}`);
@@ -156,4 +151,3 @@ async function dataProducts() {
     return [];
   }
 }
-
