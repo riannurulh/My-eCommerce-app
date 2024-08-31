@@ -1,5 +1,6 @@
 "use client";
 
+import WLCard from "@/app/components/WhislistCard";
 import { WishlistType } from "@/app/db/models/Wishlist";
 import { useEffect, useState } from "react";
 
@@ -16,7 +17,6 @@ type ProductType = {
 
 export default function Wishlist() {
   const [wishlistList, setWishlistList] = useState<WishlistTypeWithProduct[]>([]);
-  // console.log('wlpageni');
   const handleDelWishlist = async (_id: string) => {
     const form = {
       _id,
@@ -84,7 +84,7 @@ export default function Wishlist() {
         <div className="space-y-4 mt-12">
           {wishlistList.map((el) => (
             <>
-              <div className="grid grid-cols-3 items-start gap-4">
+              {/* <div className="grid grid-cols-3 items-start gap-4">
                 <div className="col-span-2 flex items-center gap-4">
                   <div className="w-28 h-28 max-sm:w-24 max-sm:h-24  bg-gray-100 p-2 rounded-md">
                     <img
@@ -132,7 +132,8 @@ export default function Wishlist() {
                     REMOVE
                   </button>
                 </div>
-              </div>
+              </div> */}
+              <WLCard props={el} fetch={fetchWishlist}/>
 
               <hr className="border-gray-300" />
             </>

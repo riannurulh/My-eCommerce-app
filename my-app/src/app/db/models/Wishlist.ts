@@ -17,7 +17,7 @@ export class Wishlist {
   }
 
   static async AddToWishlist(data: WishlistType) {
-    console.log(data, "ini asli");
+    // console.log(data, "ini data di model wl");
 
     const newData: any = {
       userId: new ObjectId(data.UserId),
@@ -60,7 +60,7 @@ export class Wishlist {
         },
       ];
       const result = await this.col().aggregate(pipeline).toArray();
-      console.log(result, "wl model");
+      // console.log(result, "wl model");
 
       return result;
     } catch (error) {

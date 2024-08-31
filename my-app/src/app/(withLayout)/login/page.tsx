@@ -1,6 +1,8 @@
 
 import SweetAlert from "@/app/components/Sweetalert";
+// import { log } from "console";
 import { cookies } from "next/headers";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 // import SweetAlert from "../../components/Sweetalert";
 
@@ -10,6 +12,12 @@ import { redirect } from "next/navigation";
 // }
 
 export default function Login() {
+  const cookieChecker = cookies().has('id')
+  console.log(cookieChecker);
+  
+  if (cookieChecker) {
+    return redirect('/')
+  }
   const handleLogin = async (formData: FormData) => {
     "use server";
 
@@ -156,12 +164,12 @@ export default function Login() {
               </div>
               <p className="text-gray-800 text-sm !mt-8 text-center">
                 Don't have an account?{" "}
-                <a
-                  href="javascript:void(0);"
+                <Link
+                  href={'/register'}
                   className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"
                 >
                   Register here
-                </a>
+                </Link>
               </p>
             </form>
           </div>

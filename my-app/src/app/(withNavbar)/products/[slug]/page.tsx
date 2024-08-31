@@ -1,8 +1,11 @@
 import { ResolvingMetadata } from "next";
+import Wishlist from "../../(withAuth)/wishlists/page";
+import { cookies } from "next/headers";
+import AddWishlist from "@/app/components/Wishlist";
 
 export async function generateMetadata(props: any,parent: ResolvingMetadata) {
   // console.log(params,'param meta');
-  console.log(parent, 'meta');
+  // console.log(parent, 'meta');
   
   
   const response = await fetch(
@@ -22,12 +25,20 @@ export async function generateMetadata(props: any,parent: ResolvingMetadata) {
 }
 
 export default async function ProductDetail({ params }:any) {
-  console.log(params);
+  // console.log(params);
   const response = await fetch(
     `${process.env.BASE_URL}api/products/${params.slug}`
   );
-
+  const kuki = cookies().get('id')
+  console.log(kuki,'slug');
+  
   const product = await response.json();
+  const newObj = {
+    product,
+    kuki: kuki?.value
+  }
+  console.log(newObj);
+  
   // console.log(product, "<<<inih");
 
   return (
@@ -153,12 +164,13 @@ export default async function ProductDetail({ params }:any) {
               >
                 Buy now
               </button>
-              <button
+              {/* <button
                 type="button"
                 className="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md"
               >
                 Add to wishlist
-              </button>
+              </button> */}
+              <AddWishlist products={newObj} frompage="slug"/>
             </div>
           </div>
         </div>

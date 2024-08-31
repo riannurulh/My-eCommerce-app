@@ -7,7 +7,7 @@ export async function GET(request: Request) {
   try {
     console.log('msk get wl api');
     const cekKuki = cookies().get('id')
-    // console.log(cekKuki,'model');
+    console.log(cekKuki,'model');
     
     const userId: any = cekKuki?.value
     if (!userId) {
@@ -30,8 +30,10 @@ export async function POST(request: Request) {
     
     const body: WishlistType = await request.json();
     console.log(body,'body post wl api');
-
+    // const cekKuki = cookies().get('id')
+    // body.UserId = cekKuki?.value
     const result = await Wishlist.AddToWishlist(body);
+console.log(result,'aaaaaa');
 
     return Response.json({ msg: result });
   } catch (error) {

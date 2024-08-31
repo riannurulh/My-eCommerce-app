@@ -12,10 +12,10 @@ export default async function Home() {
   // console.log(process.env.BASE_URL,'iniiii');
 
   const products: ProductType[] = await dataProducts();
-  const wl: WishlistType[] = await fetchWishlist();
-  console.log(wl, "wlwlwl");
+  // const wl: WishlistType[] = await fetchWishlist();
+  // console.log(wl, "wlwlwl");
 
-  const kuki = cookies().getAll();
+  const kuki = cookies().get('id')?.value;
   console.log(kuki, "nikuki");
   return (
     <>
@@ -34,7 +34,7 @@ export default async function Home() {
             return (
               <Card
                 product={product}
-                kuki={kuki[1]?.value}
+                kuki={kuki}
                 key={product._id.toString()}
               />
             );
@@ -68,22 +68,27 @@ export async function dataProducts() {
     return [];
   }
 }
-export async function fetchWishlist() {
-  try {
-    const response = await fetch(`${process.env.BASE_URL}api/wishlists`
-    );
+// export async function fetchWishlist() {
+//   try {
+//     const response = await fetch(`http://localhost:3000/api/wishlists`, {
+//       method: "GET",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
+//     console.log(response,'coba');
+//     console.log(process.env.BASE_URL,'coba');
 
-    console.log(response,'coba');
-    if (!response.ok) {
-      throw new Error("Failed to fetch wishlist");
-    }
+//     if (!response.ok) {
+//       throw new Error("Failed to fetch wishlist");
+//     }
     
-    const data = (await response.json()) as WishlistType[];
-    console.log(data, "wl-----");
-    return data;
-  } catch (error) {
-    console.log(error);
+//     const data = (await response.json()) as WishlistType[];
+//     console.log(data, "wl-----");
+//     return data;
+//   } catch (error) {
+//     console.log(error);
 
-    return [];
-  }
-}
+//     return [];
+//   }
+// }

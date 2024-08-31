@@ -10,6 +10,8 @@ export default function Card(props: { product: ProductType, kuki?: string }) {
 
   // console.log(props,'hehehe');
   const product = props.product;
+  console.log(props,'propscard');
+  
   //   async function handleAddWishlist() {
   //     console.log("masuk");
   //     const result = await fetch("http://localhost:3000/api/wishlists", {

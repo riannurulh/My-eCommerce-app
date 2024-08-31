@@ -21,8 +21,8 @@ export async function POST(request: Request) {
     if (checkUser) {
       console.log('masuk error');
       
-      // throw new Error('Email must be unique')
-      return Response.json({ error: "Email must be unique" }, { status: 400 });
+      throw new Error('Email must be unique')
+      // return Response.json({ error: "Email must be unique" }, { status: 400 });
     }
 
     await User.create(body);
@@ -30,15 +30,28 @@ export async function POST(request: Request) {
     return Response.json({ message: "Register successfully" }, { status: 201 });
   } catch (error) {
     if (error instanceof ZodError) {
-      console.log("masuk error di route");
-      
-      const formatted = error.issues.map((issue) => ({
+      const formattedErrors = error.issues.map((issue) => ({
         field: issue.path[0],
         message: issue.message.toLowerCase(),
       }));
 
-      return Response.json({ error: formatted }, { status: 400 });
+      return {
+        error: formattedErrors,
+        status: 400,
+      };
     }
-    return Response.json({ error: "Internal Server Error" }, { status: 500 }); 
+
+    if (error instanceof Error) {
+      return {
+        error: error.message,
+        status: 500,
+      };
+    }
+
+    console.error("Internal Server Error:", error);
+    return {
+      error: "Internal Server Error",
+      status: 500,
+    };
   }
 }
