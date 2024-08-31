@@ -67,7 +67,7 @@ export default function Products() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              stroke-width="2"
+              // stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
             >
@@ -126,7 +126,7 @@ export default function Products() {
       >
         <div className="grid grid-cols-3 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {products.map((product) => (
-            <Card key={product.slug} product={product} />
+            <Card key={product._id} product={product} />
           ))}
         </div>
       </InfiniteScroll>

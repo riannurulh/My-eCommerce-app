@@ -34,12 +34,12 @@ export default function Login() {
     }
 
     const responseBody = (await response.json()) as {
-      access_token: string;
+      accessToken: string;
       id: string;
     };
     console.log(responseBody, "rbodyyyy");
 
-    cookies().set("Authorization", "Bearer " + responseBody.access_token);
+    cookies().set("Authorization", "Bearer " + responseBody.accessToken);
     cookies().set("id", `${responseBody.id}`);
 
     return redirect("/");
