@@ -1,14 +1,14 @@
-import Product from "@/app/db/models/Product"
+import Product from "@/app/db/models/Product";
 
 type secondParams = {
-    params :{
-        slug: string
-    }
-}
+  params: {
+    slug: string;
+  };
+};
 
-export async function GET(request:Request,{params}: secondParams) {
-    console.log(request);
-    
-    const product = await Product.findBySlug(params.slug)
-    return Response.json(product)
+export async function GET(request: Request, { params }: secondParams) {
+  console.log(request);
+
+  const product = await Product.findBySlug(params.slug);
+  return Response.json(product);
 }

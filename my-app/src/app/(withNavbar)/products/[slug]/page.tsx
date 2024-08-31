@@ -9,7 +9,7 @@ export async function generateMetadata(props: any, parent: ResolvingMetadata) {
   // console.log(parent, 'meta');
 
   const response = await fetch(
-    `${process.env.BASE_URL}api/products/${props.params.slug}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}api/products/${props.params.slug}`
   );
 
   const data = await response.json();
@@ -27,7 +27,7 @@ export async function generateMetadata(props: any, parent: ResolvingMetadata) {
 export default async function ProductDetail({ params }: any) {
   // console.log(params);
   const response = await fetch(
-    `${process.env.BASE_URL}api/products/${params.slug}`
+    `${process.env.NEXT_PUBLIC_BASE_URL}api/products/${params.slug}`
   );
   const kuki = cookies().get("id");
   console.log(kuki, "slug");

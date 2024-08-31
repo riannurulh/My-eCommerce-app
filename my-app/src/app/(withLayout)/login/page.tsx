@@ -201,7 +201,7 @@ export default function Login() {
     };
 
     try {
-      const response = await fetch(`${process.env.BASE_URL}api/users/login`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/users/login`, {
         method: "POST",
         body: JSON.stringify(form),
         headers: {
@@ -330,7 +330,7 @@ export default function Login() {
                 </button>
               </div>
               <p className="text-gray-800 text-sm !mt-8 text-center">
-                Don't have an account?
+                Do not have an account?
                 <Link
                   href={"/register"}
                   className="text-blue-600 hover:underline ml-1 whitespace-nowrap font-semibold"

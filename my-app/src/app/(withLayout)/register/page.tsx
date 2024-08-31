@@ -16,7 +16,7 @@ export default function Register() {
       password: formData.get("password"),
     };
 
-    const response = await fetch(`${process.env.BASE_URL}api/users/register`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}api/users/register`, {
       method: "POST",
       body: JSON.stringify(form),
       headers: {

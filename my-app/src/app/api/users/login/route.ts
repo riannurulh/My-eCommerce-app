@@ -25,7 +25,7 @@ export async function POST(request: Request) {
     }
 
     const { password, ...safeUser } = user; 
-    const accessToken = sign(safeUser, process.env.JWT_SECRET); 
+    const accessToken = sign(safeUser, process.env.NEXT_PUBLIC_JWT_SECRET); 
     // const accessToken = sign(safeUser, process.env.JWT_SECRET!); 
 
     // Optional: Set access token in a cookie
